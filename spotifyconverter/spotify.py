@@ -34,7 +34,7 @@ def get_playlist(username, playlist_user, playlist_id):
     return sp.user_playlist(
         playlist_user,
         playlist_id,
-        fields="name,description,tracks.items(track(name,album(name),artists,external_ids))"
+        fields="name,description,tracks.items(track(name,album(name),artists(name),external_ids))"
     )
 
 

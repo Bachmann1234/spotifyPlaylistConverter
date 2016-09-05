@@ -13,37 +13,29 @@ from gmusicapi import Mobileclient
 Call.gets_logged = False
 
 
-def upload_playlist(gmusic_client, playlist, track_ids):
-    gmusic_playlist = gmusic_client.create_playlist(playlist.name, description=playlist.description)
+def get_relevant_track_id(track, results):
+    if not results:
+        print("Could not find track: {} - {}".format(track.name, " ".join(track.artists)))
+    else:
+        print("✓")
+        return results[0]['track']['nid']
+
+
+def upload_playlist(gmusic_client, name, description, track_ids):
+    gmusic_playlist = gmusic_client.create_playlist(name, description=description)
     gmusic_client.add_songs_to_playlist(gmusic_playlist, track_ids)
 
 
-def find_relevant_track(search_results, track):
-    # This could potentially get smarter....
-    if not search_results:
-        print("Could not find track: {} - {}".format(track.name, " ".join(track.artists)))
-        return None
-    else:
-        print("✓")
-        return search_results[0]['track']['nid']
-
-
-def get_track_id(gmusic_client, track):
-    query = "{} {}".format(track.name, " ".join(track.artists))
-    search_results = gmusic_client.search(
-        query,
-        max_results=5
-    )['song_hits']
-    return find_relevant_track(search_results, track)
-
-
-def get_track_ids(gmusic_client, playlist):
-    return list(
-        filter(
-            None,
-            [get_track_id(gmusic_client, track) for track in playlist.tracks]
+def get_query_results(gmusic_client, playlist):
+    for track in playlist.tracks:
+        query = "{} {}".format(track.name, " ".join(track.artists))
+        yield (
+            track,
+            gmusic_client.search(
+                query,
+                max_results=5
+            )['song_hits']
         )
-    )
 
 
 def main():
@@ -69,8 +61,8 @@ def main():
             json.loads(infile.read())
         )
 
-    track_ids = get_track_ids(gmusic_client, playlist)
-    upload_playlist(gmusic_client, playlist, track_ids)
+    track_ids = [get_relevant_track_id(track, results) for track, results in get_query_results(gmusic_client, playlist)]
+    upload_playlist(gmusic_client, playlist.name, playlist.description, track_ids)
 
 
 if __name__ == '__main__':

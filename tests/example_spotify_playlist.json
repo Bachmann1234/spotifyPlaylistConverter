@@ -1,0 +1,40 @@
+{
+   "description":"Test Playlist description",
+   "name":"Test Playlist",
+   "tracks":{
+      "items":[
+         {
+            "track":{
+               "artists":[
+                  {
+                     "name":"The Test Artist"
+                  }
+               ],
+               "name":"Test Track",
+               "external_ids":{
+                  "isrc":"dasudasd"
+               },
+               "album":{
+                  "name":"Test Album"
+               }
+            }
+         },
+         {
+            "track":{
+               "artists":[
+                  {
+                     "name":"The Other Test"
+                  }
+               ],
+               "name":"OMG TEST",
+               "external_ids":{
+                  "isrc":"3213a123123"
+               },
+               "album":{
+                  "name":"Test Album Two"
+               }
+            }
+         }
+      ]
+   }
+}
