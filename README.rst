@@ -9,8 +9,11 @@ Google Music Ones.
 To extract a spotify playlist you need the following environment variables defined
 
 SPOTIPY_CLIENT_ID=''
+
 SPOTIPY_CLIENT_SECRET=''
+
 SPOTIPY_REDIRECT_URI=''
+
 SPOTIFY_USER=''
 
 No typos there. the first 3 are SPOTIPY the api library im using. The last one is your spotify username
