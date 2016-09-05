@@ -5,7 +5,7 @@ with open('requirements.txt') as f:
 
 setup(
    name='spotifyPlaylistConverter',
-   version='1.1',
+   version='1.2',
    author='Matt Bachmann',
    url='https://github.com/Bachmann1234/playlistConverter',
    description='scripts to convert a Spotify playlist to a Google Music one',
