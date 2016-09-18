@@ -62,7 +62,7 @@ def main():
         )
 
     track_ids = [get_relevant_track_id(track, results) for track, results in get_query_results(gmusic_client, playlist)]
-    upload_playlist(gmusic_client, playlist.name, playlist.description, track_ids)
+    upload_playlist(gmusic_client, playlist.name, playlist.description, [x for x in track_ids if x])
 
 
 if __name__ == '__main__':
